@@ -10,12 +10,15 @@ class App extends Component {
       monsters: [
         {
           name: 'Mercedes',
+          id: 1,
         },
         {
           name: 'Ferrari',
+          id: 2,
         },
         {
           name: 'Redbull',
+          id: 3,
         },
       ]
     };
@@ -24,8 +27,11 @@ class App extends Component {
     return (
       <div className="App" >
         {
+          // key value is used by react in order to make our app more optimized when it comes to updating and re-rendering components  on page.
           this.state.monsters.map((monster) => {
-            return <h1>{monster.name}</h1>
+            return <div key={monster.id}>
+              <h1>{monster.name}</h1>
+            </div>
           })
         }
       </div >
