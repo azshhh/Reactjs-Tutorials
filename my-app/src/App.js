@@ -7,27 +7,26 @@ class App extends Component {
     super();
 
     this.state = {
-      monsters: [
-        {
-          name: 'Mercedes',
-          id: 1,
-        },
-        {
-          name: 'Ferrari',
-          id: 2,
-        },
-        {
-          name: 'Redbull',
-          id: 3,
-        },
-      ]
+      monsters: []
     };
   }
+
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((response) => response.json())
+      .then((users) =>
+        this.setState(() => {
+          return { monsters: users };
+        }, () => {
+          console.log(this.state);
+        })
+      )
+  }
+
   render() {
     return (
       <div className="App" >
         {
-          // key value is used by react in order to make our app more optimized when it comes to updating and re-rendering components  on page.
           this.state.monsters.map((monster) => {
             return <div key={monster.id}>
               <h1>{monster.name}</h1>
