@@ -7,31 +7,27 @@ class App extends Component {
     super();
 
     this.state = {
-      name: { firstName: 'Redbull', lastName: 'Racing' },
-      // name: 'Redbull',
-      company: 'React'
+      monsters: [
+        {
+          name: 'Mercedes',
+        },
+        {
+          name: 'Ferrari',
+        },
+        {
+          name: 'Redbull',
+        },
+      ]
     };
   }
   render() {
     return (
       <div className="App" >
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Hi {this.state.name.firstName} {this.state.name.lastName}, I work at {this.state.company}
-          </p>
-          <button onClick={() => {
-            this.setState(() => {
-              // This fxn updates state in UI
-              return { name: { firstName: 'Mercedes', lastName: 'Racing' } }
-            }, () => {
-              // This fxn updates state in console, its a callback fxn 
-              console.log(this.state);
-            });
-          }}>
-            Change Name
-          </button>
-        </header>
+        {
+          this.state.monsters.map((monster) => {
+            return <h1>{monster.name}</h1>
+          })
+        }
       </div >
     );
   }
