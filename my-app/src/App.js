@@ -5,12 +5,16 @@ class App extends Component {
   constructor() {
     super();
 
+    // 1. state is executed
     this.state = {
       monsters: [],
+      searchField: '',
     };
   }
 
+  // 3.1. Here engine fetched data from API basically monsters as users
   componentDidMount() {
+    console.log('Fetching');
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((users) =>
@@ -26,8 +30,17 @@ class App extends Component {
   }
 
   render() {
+
+    // 2. Engine starts rendering
+    // 7. When user searches, filteredMonsters matches the monsters using includes()
+    const filteredMonsters = this.state.monsters.filter((monster) => {
+      return monster.name.toLocaleLowerCase().includes(this.state.searchField);
+    });
+
     return (
       <div className="App">
+
+        {/* 5. When user searches */}
         <input
           className="search-box"
           type="search"
@@ -35,21 +48,18 @@ class App extends Component {
           onChange={(event) => {
             console.log(event.target.value);
 
-            // searchString for case-insensitive searching
-            const searchString = event.target.value.toLocaleLowerCase();
-
-            // filteredMonsters returns filtered monsters in API which matches the string searched in search box 
-            const filteredMonsters = this.state.monsters.filter((monster) => {
-              return monster.name.toLocaleLowerCase().includes(searchString);
-            });
-
+            // 6. All values are stored in searchField in lowercase and is returned
+            const searchField = event.target.value.toLocaleLowerCase();
             this.setState(() => {
-              return { monsters: filteredMonsters }
+              return { searchField }
             });
           }}
         />
 
-        {this.state.monsters.map((monster) => {
+        {/* 3. It will start to map monsters through invoking componentDidMount()*/}
+        {/* 4. Finally it renders monsters.name on UI */}
+        {/* 8. Renders monsters matching searchField */}
+        {filteredMonsters.map((monster) => {
           return (
             <div key={monster.id}>
               <h1>{monster.name}</h1>
@@ -57,6 +67,7 @@ class App extends Component {
           );
         })}
       </div>
+      
     );
   }
 }
