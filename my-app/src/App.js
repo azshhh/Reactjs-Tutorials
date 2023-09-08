@@ -34,7 +34,11 @@ class App extends Component {
           placeholder="search monsters"
           onChange={(event) => {
             console.log(event.target.value);
+
+            // searchString for case-insensitive searching
             const searchString = event.target.value.toLocaleLowerCase();
+
+            // filteredMonsters returns filtered monsters in API which matches the string searched in search box 
             const filteredMonsters = this.state.monsters.filter((monster) => {
               return monster.name.toLocaleLowerCase().includes(searchString);
             });
