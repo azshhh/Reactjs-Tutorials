@@ -12,16 +12,13 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((users) =>
-        this.setState(
-          () => {
-            return { monsters: users };
-          }
-        )
-      );
+  // Optimizing callbacks to async/await 
+  async componentDidMount() {
+    const response = await fetch("https://jsonplaceholder.typicode.com/users");
+    const users = await response.json();
+    this.setState(() => {
+      return { monsters: users }
+    })
   }
 
   // Optimizing onChange 
