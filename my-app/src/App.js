@@ -13,7 +13,6 @@ class App extends Component {
     };
   }
 
-  // Optimizing callbacks to async/await
   async componentDidMount() {
     const response = await fetch("https://jsonplaceholder.typicode.com/users");
     const users = await response.json();
@@ -22,7 +21,6 @@ class App extends Component {
     });
   }
 
-  // Optimizing onChange
   onSearchChange = (event) => {
     const searchField = event.target.value.toLocaleLowerCase();
     this.setState(() => {
@@ -31,7 +29,6 @@ class App extends Component {
   };
 
   render() {
-    // Object Destructuring
     const { monsters, searchField } = this.state;
     const { onSearchChange } = this;
     const filteredMonsters = monsters.filter((monster) => {
