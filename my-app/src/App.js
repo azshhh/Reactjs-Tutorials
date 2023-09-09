@@ -7,29 +7,25 @@ import SearchBox from "./components/search-box/search-box-component";
 const App = () => {
   const [searchField, setSearchField] = useState("a");
   const [monsters, setMonsters] = useState([]);
-  
-  console.log('render');
+  const [filteredMonsters, setFilterMonsters] = useState(monsters);
 
-  useEffect(
-    () => {
-      console.log("useEffect");
-      // This callback triggers only when any value in Dependency-Array changes
-      fetch("https://jsonplaceholder.typicode.com/users")
-        .then((respone) => respone.json())
-        .then((users) => setMonsters(users));
-    },
-    // Dependency Array, which takes state-value or props-value
-    []
-  );
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((respone) => respone.json())
+      .then((users) => setMonsters(users));
+  }, []);
+
+  useEffect(() => {
+    const newFilteredMonsters = monsters.filter((monster) => {
+      return monster.name.toLocaleLowerCase().includes(searchField);
+    });
+    setFilterMonsters(newFilteredMonsters);
+  }, [monsters, searchField]);
 
   const onSearchChange = (event) => {
     const searchFieldString = event.target.value.toLocaleLowerCase();
     setSearchField(searchFieldString);
   };
-
-  const filteredMonsters = monsters.filter((monster) => {
-    return monster.name.toLocaleLowerCase().includes(searchField);
-  });
 
   return (
     <div className="App">
@@ -39,7 +35,7 @@ const App = () => {
         onChangeHandler={onSearchChange}
         placeholder="search monsters"
       />
-      {/* <CardList monsters={filteredMonsters} /> */}
+      <CardList monsters={filteredMonsters} />
     </div>
   );
 };
