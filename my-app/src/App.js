@@ -5,16 +5,13 @@ import CardList from "./components/card-list/card-list-component";
 import SearchBox from "./components/search-box/search-box-component";
 
 const App = () => {
+  console.log('render');
   const [searchField, setSearchField] = useState('');
-
-  // Reactjs is going to re-render the entire App function, only if the state-value 'searchField' changes not the set-value 'setSearchField'.
   console.log(searchField);
 
   const onSearchChange = (event) => {
     const searchFieldString = event.target.value.toLocaleLowerCase();
-
-    // So passing state-value 'searchField' which is an empty string '', to the hook will not effect anyways
-    setSearchField(searchField);
+    setSearchField(searchFieldString);
   };
 
   return (
