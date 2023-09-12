@@ -9,6 +9,8 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+
 const firebaseConfig = {
   apiKey: "AIzaSyB07MylcuutHrjDCDPHJ2MjUZEL8N7ampg",
   authDomain: "capstone-db-11c03.firebaseapp.com",
@@ -33,3 +35,12 @@ provider.setCustomParameters({
 export const auth = getAuth(firebaseApp);
 // this generates a Google Popup to signin
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+// getting access to db in firebase
+export const db = getFirestore();
+
+// Creating user reference to get user.uid and further to store user data in db
+export const createUserDocumentFromAuth = async (userAuth) => {
+  const userDocRef = doc(db, "users", userAuth.uid);
+  console.log(userDocRef);
+};
