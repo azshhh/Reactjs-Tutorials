@@ -1,14 +1,9 @@
-// we importinf firebase/app to initialize our local app
 import { initializeApp } from "firebase/app";
-
-// to handle authentication we are importing several auths from firebase
 import {
   getAuth,
-  //   signInWithRedirect,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -20,33 +15,38 @@ const firebaseConfig = {
   appId: "1:891145211329:web:42cf7281e433e1b0d9f340",
 };
 
-// initializing our app
 const firebaseApp = initializeApp(firebaseConfig);
-
-// provider is an instance of GoogleAuthProvider, there can be multiple instances
 const provider = new GoogleAuthProvider();
 
-// now we are setting up a parameter by which we authorize a user
 provider.setCustomParameters({
   prompt: "select_account",
 });
 
-// default auth provided by firebase to authorize user with provided parameter
 export const auth = getAuth(firebaseApp);
-// this generates a Google Popup to signin
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
-// getting access to db in firebase
 export const db = getFirestore();
-
-// Creating user reference to get user.uid and further to store user data in db
 export const createUserDocumentFromAuth = async (userAuth) => {
   const userDocRef = doc(db, "users", userAuth.uid);
   console.log(userDocRef);
 
   const userSnapshot = await getDoc(userDocRef);
   console.log(userSnapshot);
-
-  // Does userSnapshot really exists in db?
   console.log(userSnapshot.exists());
+
+  if (!userSnapshot.exists()) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+    try {
+      await setDoc(userDocRef, {
+        displayName,
+        email,
+        createdAt,
+      });
+    } catch (error) {
+      console.log("Error creating the user", error.message);
+    }
+  }
+
+  return userDocRef;
 };
