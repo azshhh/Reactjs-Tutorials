@@ -1,7 +1,11 @@
 import { createContext, useState } from "react";
 
 // This is actual values, or Context where user values are stored
-export const UserContext = createContext({});
+export const UserContext = createContext({
+    // Build base empty state of the user
+  currentUser: null,
+  setCurrentUser: () => null,
+});
 
 // This provider, provides the user values to the child it recieves (say <App />)
 export const UserProvider = ({ children }) => {
