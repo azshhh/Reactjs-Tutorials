@@ -42,6 +42,7 @@ const SignInForm = () => {
         email,
         password
       );
+      // this stores the user values in Context, to use it go to navigation
       setCurrentUser(user);
       resetFormFields();
     } catch (error) {
