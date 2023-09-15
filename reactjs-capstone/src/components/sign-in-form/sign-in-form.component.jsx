@@ -29,11 +29,12 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      // Whemever user sign-in, we store it into our Context Storage. To do this we need to use useContext hook
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
+      console.log(user);
       resetFormFields();
     } catch (error) {
       switch (error.code) {
