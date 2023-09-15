@@ -5,7 +5,6 @@ import "./navigation.styles.scss";
 import { UserContext } from "../../context/user.context";
 
 const Navigation = () => {
-  // Whenever user sign-in, our form gets the response, destructures the user, stores it into our UserContext, then it is logged from out Navigation component
   const { currentUser } = useContext(UserContext);
   console.log(currentUser);
 

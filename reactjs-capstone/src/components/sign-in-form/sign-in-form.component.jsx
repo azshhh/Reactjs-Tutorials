@@ -3,7 +3,6 @@ import { useState, useContext } from "react";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
-// This UserContext will give values whatever the values are passed in for the state-values, These are currentUser and setCurrentUser of useState as an object
 import { UserContext } from "../../context/user.context";
 
 import {
@@ -37,12 +36,10 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Whemever user sign-in, we store it into our Context Storage. To do this we need to use useContext hook
       const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      // this stores the user values in Context, to use it go to navigation
       setCurrentUser(user);
       resetFormFields();
     } catch (error) {
