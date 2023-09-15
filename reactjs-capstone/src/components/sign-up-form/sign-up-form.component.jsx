@@ -1,5 +1,6 @@
 import { useState } from "react";
 import FormInput from "../form-input/form-input.component";
+import "./sign-up-form.styles.scss";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -49,22 +50,19 @@ const SignUpForm = () => {
   };
 
   return (
-    <div>
-      <h1>Sign-up with your email and password</h1>
+    <div className="sign-up-container">
+      <h2>Create an account</h2>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Name"
-          // using this method we can differentiate what props are passed to the varialbles
-          inputOptions={{
-            type: "text",
-            required: true,
-            onChange: handleChange,
-            name: "displayName",
-            value: displayName,
-          }}
+          type="text"
+          required
+          onChange={handleChange}
+          name="displayName"
+          value={displayName}
         />
 
-        {/* <FormInput
+        <FormInput
           label="Email"
           type="email"
           required
@@ -91,7 +89,7 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
           autoComplete="new-password"
-        /> */}
+        />
 
         <button type="submit">Sign Up</button>
       </form>
