@@ -19,9 +19,6 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  // We are hooked into UserContext, When we SIGNIN this compo re-runs. React did re-rendered compo but it didn't re-rendered the actual DOM, bcoz nothing changed on the DOM, this is where VirtualDOM comes in. But this effects performance
-  const val = useContext(UserContext);
-
   console.log("hit");
 
   const resetFormFields = () => {
