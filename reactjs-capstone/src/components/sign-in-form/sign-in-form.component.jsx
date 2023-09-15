@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+
 import FormInput from "../form-input/form-input.component";
-import "./sign-in-form.styles.scss";
 import Button from "../button/button.component";
+
+// This UserContext will give values whatever the values are passed in for the state-values, These are currentUser and setCurrentUser of useState as an object
+import { UserContext } from "../../context/user.context";
+
 import {
   createUserDocumentFromAuth,
   signInWithGooglePopup,
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
+
+import "./sign-in-form.styles.scss";
 
 const defaultFormFields = {
   email: "",
@@ -16,6 +22,8 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+
+  const { setCurrentUser } = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -34,7 +42,7 @@ const SignInForm = () => {
         email,
         password
       );
-      console.log(user);
+      setCurrentUser(user);
       resetFormFields();
     } catch (error) {
       switch (error.code) {
