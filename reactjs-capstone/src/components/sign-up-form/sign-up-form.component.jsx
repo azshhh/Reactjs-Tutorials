@@ -54,14 +54,17 @@ const SignUpForm = () => {
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Name"
-          type="text"
-          required
-          onChange={handleChange}
-          name="displayName"
-          value={displayName}
+          // using this method we can differentiate what props are passed to the varialbles
+          inputOptions={{
+            type: "text",
+            required: true,
+            onChange: handleChange,
+            name: "displayName",
+            value: displayName,
+          }}
         />
 
-        <FormInput
+        {/* <FormInput
           label="Email"
           type="email"
           required
@@ -88,7 +91,7 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
           autoComplete="new-password"
-        />
+        /> */}
 
         <button type="submit">Sign Up</button>
       </form>
