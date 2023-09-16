@@ -8,10 +8,8 @@ import { signOutUser } from "../../utils/firebase/firebase.utils";
 const Navigation = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
 
-  // onClick signOutUser is called which signs out user from firebase and setCurrentUser(null) indicates to set it to null.
   const signOutHandler = async () => {
     await signOutUser();
-    // Is our UserContext storage behaves as cache?
     setCurrentUser(null);
   };
 
@@ -26,7 +24,6 @@ const Navigation = () => {
             Shop
           </Link>
           {currentUser ? (
-            // signOutUser signs out the currentUser, but user is not signed-out of the UserContext, tp do this we instead call signOutHandler
             <span className="nav-link" onClick={signOutHandler}>
               SIGN OUT
             </span>
