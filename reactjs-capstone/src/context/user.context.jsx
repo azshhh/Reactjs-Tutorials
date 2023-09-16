@@ -18,7 +18,8 @@ export const UserProvider = ({ children }) => {
   // Im only wanna run the inside fxn  once when component mounts
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListner((user) => {
-      console.log(user);
+      // If user sign-in => user object, if sign-out => null 
+      setCurrentUser(user);
     });
     return unsubscribe;
   }, []);
