@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import {
   onAuthStateChangedListner,
-  signOutUser,
+  createUserDocumentFromAuth,
 } from "../utils/firebase/firebase.utils";
 
 export const UserContext = createContext({
@@ -13,12 +13,11 @@ export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const value = { currentUser, setCurrentUser };
 
-  signOutUser();
-
-  // Im only wanna run the inside fxn  once when component mounts
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListner((user) => {
-      // If user sign-in => user object, if sign-out => null 
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
       setCurrentUser(user);
     });
     return unsubscribe;
