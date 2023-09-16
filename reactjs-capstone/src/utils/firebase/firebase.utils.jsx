@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
@@ -62,3 +63,8 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 };
 
 export const signOutUser = async () => await signOut(auth);
+
+//  Callback get called everytime auth state changes
+// Whenever you instantiate this fxn you have to give me callback, this callback is given to  onAuthStateChanged()
+export const onAuthStateChangedListner = (callback) =>
+  onAuthStateChanged(auth, callback);
