@@ -67,4 +67,5 @@ export const signOutUser = async () => await signOut(auth);
 //  Callback get called everytime auth state changes
 // Whenever you instantiate this fxn you have to give me callback, this callback is given to  onAuthStateChanged()
 export const onAuthStateChangedListner = (callback) =>
+  // auth changes 2 times, when signed in and signed out, also callback gets invoked 2 times.
   onAuthStateChanged(auth, callback);
